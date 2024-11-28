@@ -39,22 +39,37 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+
+            // id TextField
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                 child: TextField(
                   controller: idController,
+                  onChanged: (value) => setState(() {}),
                   decoration: const InputDecoration(
                     labelText: '아이디를 입력하세요',
                   ),
                   keyboardType: TextInputType.text,
                 ),
-              // ),
             ),
 
+            // id 입력 글자 수 text
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
+              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('${idController.text.length}/6'),
+                ],
+              ),
+            ),
+
+            // pw 입력 TextField 
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                 child: TextField(
                   controller: pwController,
+                  onChanged: (value) => setState(() {}),
                   decoration: const InputDecoration(
                     labelText: '비밀번호를 입력하세요',
                   ),
@@ -62,27 +77,21 @@ class _LoginPageState extends State<LoginPage> {
                 ),
             ),
 
-            // SizedBox(
-            //   width: 200,
-            //   height: 50,
-            //   child: ElevatedButton(
-            //     onPressed: () => {},
-            //     style: ElevatedButton.styleFrom(
-            //       backgroundColor: Theme.of(context).colorScheme.secondary
-            //     ),
-            //     child: Text(
-            //       "로그인",
-            //       style: TextStyle(
-            //         color: Colors.white,
-            //         fontSize: 18
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            // id 입력 글자 수 text
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 20, 40),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text('${pwController.text.length}/12'),
+                ],
+              ),
+            ),
 
             controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "로그인", 1, idController, pwController),
             const SizedBox(height: 20,),
             controller.myEleBtn(Theme.of(context).colorScheme.secondary, Colors.white, "회원가입", 2, null, null),
+            
 
           ],
         ),
