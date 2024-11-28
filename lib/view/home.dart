@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
     final VMgetX controller = Get.put(VMgetX());
 
     return Scaffold(
-      appBar: controller.myAppBar("로그인"),
+      appBar: controller.myAppBar("게시판"),
       body: const Center(
         child: Column(
           children: [
