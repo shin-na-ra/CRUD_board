@@ -80,9 +80,9 @@ class _LoginPageState extends State<LoginPage> {
             //   ),
             // ),
 
-            controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "로그인", 1),
+            controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "로그인", 1, idController, pwController),
             const SizedBox(height: 20,),
-            controller.myEleBtn(Theme.of(context).colorScheme.secondary, Colors.white, "회원가입", 2),
+            controller.myEleBtn(Theme.of(context).colorScheme.secondary, Colors.white, "회원가입", 2, null, null),
 
           ],
         ),
