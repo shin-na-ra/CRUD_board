@@ -1,22 +1,19 @@
 class User {
-    int? idValue;
-    String name;
     String id;
+    String name;
     String password;
     int status;
 
     User({
-        this.idValue,
-        required this.name,
         required this.id,
+        required this.name,
         required this.password,
         required this.status
     });
 
     User.fromMap(Map<String, dynamic> res) 
-        : idValue = res['idValue'],
+        : id = res['id'],
         name = res['name'],
-        id = res['id'],
         password = res['password'],
         status = res['status'];
 }
