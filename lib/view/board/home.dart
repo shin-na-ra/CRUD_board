@@ -32,9 +32,26 @@ class Home extends StatelessWidget {
             }
             final documents = snapshot.data!.docs;
             
-            return ListView(
-              children: documents.map((e) => _buildItemWidget(e)).toList(),
+            return Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 8, 25, 8),
+                  child: Row(
+                    children: [
+                      Text('제목'),
+                      Spacer(),
+                      Text('작성일'),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: ListView(
+                    children: documents.map((e) => _buildItemWidget(e)).toList(),
+                  ),
+                )
+              ],
             );
+            
           },
         ),
       ),
@@ -60,7 +77,6 @@ class Home extends StatelessWidget {
 
 Widget _buildItemWidget(doc) {
   final board = Board(
-    id: doc['id'],
     title: doc['title'],
     content: doc['content'],
     date: doc['date'],
@@ -82,14 +98,19 @@ Widget _buildItemWidget(doc) {
       .doc(doc.id)
       .update({'status' : 1});
     },
-    child: Card(
-      child: ListTile(
-        // title: Text("${board.title} \n\n 작성일 : ${board.date}"),
-        title: Text(board.title),
-        trailing: Text(
-          DateFormat('yyyy-MM-dd').format(board.date.toDate())
+    
+    child: Column(
+      children: [
+        Card(
+          child: ListTile(
+            // title: Text("${board.title} \n\n 작성일 : ${board.date}"),
+            title: Text(board.title),
+            trailing: Text(
+              DateFormat('yyyy-MM-dd').format(board.date.toDate())
+            ),
+          ),
         ),
-      ),
-    ),
+      ],
+    )
   );
 }
