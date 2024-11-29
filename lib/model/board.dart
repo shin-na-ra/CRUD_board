@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Board {
     int? id;
     String title;
     String content;
-    String date;
+    Timestamp date;
     int status;
 
     Board({
