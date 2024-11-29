@@ -1,5 +1,6 @@
 import 'package:crud_board/vm/vm_getx.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class FindPwPage extends StatefulWidget {
@@ -51,6 +52,9 @@ class _FindPwPageState extends State<FindPwPage> {
                   decoration: const InputDecoration(
                     labelText: '아이디를 입력하세요',
                   ),
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(8),
+                  ],
                   keyboardType: TextInputType.text,
                 ),
             ),
