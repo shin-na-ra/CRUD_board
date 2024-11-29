@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text('${idController.text.length}/6'),
+                  Text('${idController.text.length}/8'),
                 ],
               ),
             ),
