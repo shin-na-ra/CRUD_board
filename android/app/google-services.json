@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "253120919149",
+    "project_id": "crudboard-c785a",
+    "storage_bucket": "crudboard-c785a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253120919149:android:c55f47a4acbf87e5bdb164",
+        "android_client_info": {
+          "package_name": "com.crud.boar"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ0QLjhmvGJcqnuG8L4SNYojWcxwOIACM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
