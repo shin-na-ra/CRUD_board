@@ -6,9 +6,13 @@ import 'package:intl/intl.dart';
 
 class Boardformwidget extends StatefulWidget {
 
-  var value = Get.arguments ?? "__";
+  final String id;
+  final String title;
+  final String content;
+  final String userid;
+  final String btnName;
 
-  Boardformwidget({super.key});
+  Boardformwidget({super.key, required this.id, required this.title, required this.content, required this.userid, required this.btnName});
 
   @override
   State<Boardformwidget> createState() => _BoardformwidgetState();
@@ -27,8 +31,10 @@ class _BoardformwidgetState extends State<Boardformwidget> {
     super.initState();
     titleController = TextEditingController();
     contentController = TextEditingController();
+    titleController.text = widget.title;
+    contentController.text = widget.content;
     userid = box.read('userid');
-    print("userid : ${userid}");
+    box.write('docid', widget.id);
   }
   
   @override
@@ -59,6 +65,7 @@ class _BoardformwidgetState extends State<Boardformwidget> {
                     padding: const EdgeInsets.all(8),
                       child: TextField(
                         controller: titleController,
+                        enabled: box.read('userid') == widget.userid ? true : false,
                         onChanged: (value) => setState(() {}),
                         decoration: const InputDecoration(
                         ),
@@ -114,6 +121,7 @@ class _BoardformwidgetState extends State<Boardformwidget> {
                     padding: const EdgeInsets.fromLTRB(8,8,8,40),
                       child: TextField(
                         controller: contentController,
+                        enabled: box.read('userid') == widget.userid ? true : false,
                         onChanged: (value) => setState(() {}),
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(
@@ -131,7 +139,13 @@ class _BoardformwidgetState extends State<Boardformwidget> {
               ],
             ),
 
-            controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "글쓰기", 7, titleController, contentController, null, null),
+
+
+            widget.btnName == "글쓰기" 
+            ? controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, widget.btnName, 7, titleController, contentController, null, null)
+            : box.read('userid') == widget.userid
+              ? controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, widget.btnName, 8, titleController, contentController, null, null)
+              : SizedBox()
 
           ],
         ),

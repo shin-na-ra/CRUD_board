@@ -16,7 +16,13 @@ class _AddPageState extends State<AddPage> {
     final VMgetX controller = Get.put(VMgetX());
     return Scaffold(
       appBar: controller.myAppBar("게시판 글쓰기"),
-      body: Boardformwidget(),
+      body: Boardformwidget(
+        id: "",
+        title: "",
+        content: "",
+        userid: "",
+        btnName: "글쓰기",
+      ),
     );
   }
 }
