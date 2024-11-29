@@ -15,7 +15,7 @@ import 'package:crud_board/view/login/register.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../view/home.dart';
+import '../view/board/home.dart';
 import '../view/login/result.dart';
 
 class VMgetX extends GetxController {
