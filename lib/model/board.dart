@@ -6,13 +6,15 @@ class Board {
     String content;
     Timestamp date;
     int status;
+    String userid;
 
     Board({
         this.id,
         required this.title,
         required this.content,
         required this.date,
-        required this.status
+        required this.status,
+        required this.userid
     });
 
 }

@@ -64,7 +64,8 @@ Widget _buildItemWidget(doc) {
     title: doc['title'],
     content: doc['content'],
     date: doc['date'],
-    status: doc['status']
+    status: doc['status'],
+    userid: doc['userid']
   );
 
   return Dismissible(
