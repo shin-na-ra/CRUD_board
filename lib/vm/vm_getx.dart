@@ -31,7 +31,7 @@ class VMgetX extends GetxController {
 
 
   // ElevatedButton 함수
-  SizedBox myEleBtn(Color bgColor, Color fontColor, String title, int value, TextEditingController? cont1, TextEditingController? cont2) {
+  SizedBox myEleBtn(Color bgColor, Color fontColor, String title, int value, TextEditingController? cont1, TextEditingController? cont2, TextEditingController? cont3) {
     return SizedBox(
         width: 200,
         height: 50,
@@ -50,7 +50,12 @@ class VMgetX extends GetxController {
             // value == 3일 때, 아이디 찾기 
             } else if (value == 3) {
               await findUserId(cont1, cont2);
+
+            //뒤로가기  
+            } else if (value == 4) {
+              Get.back();
             }
+
 
           },
           style: ElevatedButton.styleFrom(
@@ -105,16 +110,19 @@ class VMgetX extends GetxController {
     return pwRegex.hasMatch(pw);
   }
 
+  //이름 정규식 체크
   bool validateName(String name) {
     final nameRegex = RegExp(r'^[가-힣]{2,5}$');
     return nameRegex.hasMatch(name);
   }
 
+  // 휴대폰 번호 정규식 체크
   bool validatePhone(String phone) {
     final phoneRegex = RegExp(r'^010[-]?\d{3,4}[-]?\d{4}$');
     return phoneRegex.hasMatch(phone);
   }
 
+  // 로그인 함수
   checkFirebaseInLogin(TextEditingController? idController, TextEditingController? pwController) async {
 
     String id = idController!.text.trim();
@@ -175,6 +183,7 @@ class VMgetX extends GetxController {
   }
 
 
+  // 아이디 찾기 함수
   findUserId(TextEditingController? nameController, TextEditingController? telnoController) async {
 
     String name = nameController!.text.trim();
