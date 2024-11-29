@@ -96,9 +96,25 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
 
+
+            // Elevated 버튼 영역
             controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "로그인", 1, idController, pwController),
             const SizedBox(height: 20,),
             controller.myEleBtn(Theme.of(context).colorScheme.secondary, Colors.white, "회원가입", 2, null, null),
+            
+
+            // textButton 영역
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  controller.myTextBtn(1, "아이디 찾기"),
+                  const Text('|'),
+                  controller.myTextBtn(0, "비밀번호 찾기"),
+                ],
+              ),
+            ),
             
 
           ],
