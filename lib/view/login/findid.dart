@@ -51,10 +51,11 @@ class _FindIdPageState extends State<FindIdPage> {
                   ),
                   keyboardType: TextInputType.name,
                 ),
+
             ),
 
 
-            // pw 입력 TextField 
+            // 휴대폰번호 입력 TextField 
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
                 child: TextField(
