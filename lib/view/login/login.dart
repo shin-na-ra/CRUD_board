@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                   controller: idController,
                   onChanged: (value) => setState(() {}),
                   decoration: const InputDecoration(
-                    labelText: '아이디를 입력하세요',
+                    labelText: '아이디를 입력하세요 (8자 이하)',
                   ),
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(8),
@@ -57,26 +57,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
             ),
 
-            // id 입력 글자 수 text
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text('${idController.text.length}/8'),
-                ],
-              ),
-            ),
 
             // pw 입력 TextField 
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
                 child: TextField(
                   obscureText: true,
                   controller: pwController,
                   onChanged: (value) => setState(() {}),
                   decoration: const InputDecoration(
-                    labelText: '비밀번호를 입력하세요',
+                    labelText: '비밀번호를 입력하세요 (8-12자)',
                   ),
                   keyboardType: TextInputType.text,
                   inputFormatters: [
@@ -85,16 +75,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
             ),
 
-            // pw 입력 글자 수 text
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 20, 40),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text('${pwController.text.length}/12'),
-                ],
-              ),
-            ),
 
 
             // Elevated 버튼 영역

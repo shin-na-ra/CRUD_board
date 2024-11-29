@@ -50,7 +50,7 @@ class _FindPwPageState extends State<FindPwPage> {
                   controller: idController,
                   onChanged: (value) => setState(() {}),
                   decoration: const InputDecoration(
-                    labelText: '아이디를 입력하세요',
+                    labelText: '아이디를 입력하세요 (8자 이하)',
                   ),
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(8),
