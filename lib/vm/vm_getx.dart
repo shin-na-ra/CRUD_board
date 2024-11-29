@@ -60,7 +60,7 @@ class VMgetX extends GetxController {
               await findUserPW(cont1, cont2, cont3);
 
             } else if (value == 6) {
-
+              await registerUserInfo(cont1, cont2, cont3, cont4);
             }
 
 
@@ -161,6 +161,7 @@ class VMgetX extends GetxController {
           .collection('user')
           .where('id', isEqualTo: id)
           .where('password', isEqualTo: pw)
+          .where('status', isEqualTo: 0)
           .get();
 
 
@@ -183,6 +184,8 @@ class VMgetX extends GetxController {
       // 입력한 id와 pw의 정보가 있을 때, 게시판 페이지로 전환    
       buttonSnack("알림", "로그인되었습니다.", 1);
       Get.to(const Home());
+      idController.clear();
+      pwController.clear();
 
     } catch(e) {
       buttonSnack("에러", "로그인 중 문제가 발생했습니다: $e", 2);
@@ -222,6 +225,7 @@ class VMgetX extends GetxController {
           .collection('user')
           .where('name', isEqualTo: name)
           .where('telno', isEqualTo: telno)
+          .where('status', isEqualTo: 0)
           .get();
 
 
@@ -293,6 +297,7 @@ class VMgetX extends GetxController {
           .where('name', isEqualTo: name)
           .where('telno', isEqualTo: telno)
           .where('id', isEqualTo: id)
+          .where('status', isEqualTo: 0)
           .get();
 
 
@@ -322,5 +327,68 @@ class VMgetX extends GetxController {
     } catch(e) {
       buttonSnack("에러", "비밀번호 찾기 중 문제가 발생했습니다: $e", 2);
     }
+  }
+
+
+  //회원가입 함수
+  registerUserInfo(TextEditingController? idController, TextEditingController? pwController, TextEditingController? nameController, TextEditingController? telnoController) async {
+    
+    String name = nameController!.text.trim();
+    String telno = telnoController!.text.trim();
+    String id = idController!.text.trim();
+    String pw = pwController!.text.trim();
+
+    if(id.isEmpty) {
+      buttonSnack("경고", "아이디를 입력하세요 .", 2);
+      return;
+    } 
+
+    if(pw.isEmpty) {
+      buttonSnack("경고", "비밀번호를 입력하세요 .", 2);
+      return;
+    } 
+
+    if(!validatePW(pw)) {
+      buttonSnack("알림", "비밀번호는 소문자, 숫자, 특수기호 8-12자입니다.", 2);
+      return;
+    }
+
+    if(name.isEmpty) {
+      buttonSnack("경고", "이름을 입력하세요 .", 2);
+      return;
+    } 
+
+    if(telno.isEmpty) {
+      buttonSnack("경고", "휴대폰 번호를 입력하세요 .", 2);
+      return;
+    } 
+
+    if(!validateId(id)) {
+      buttonSnack("경고", "아이디는 소문자, 숫자 6-8자 이상입니다.", 2);
+      return;
+    }
+
+    if(!validateName(name)) {
+      buttonSnack("경고", "한글로 이름을 입력하세요.", 2);
+      return;
+    }
+
+    if(!validatePhone(telno)) {
+      buttonSnack("경고", "010-0000-0000 형식으로 입력해주세요.", 2);
+      return;
+    }
+
+    FirebaseFirestore.instance.collection('user').add(
+      {
+        'id' : id,
+        'name' : name,
+        'password' : pw,
+        'status' : 0,
+        'telno' : telno
+      }
+    );
+    Get.back();
+    buttonSnack("알림", "${name}님 회원가입되었습니다.", 1);
+
   }
 }
