@@ -75,6 +75,8 @@ class VMgetX extends GetxController {
 
                     if(idCheckSnapshot.docs.isEmpty) {
                       buttonSnack("경고", "회원정보가 없습니다.", 2);
+                      idController.clear();
+                      pwController.clear();
                     } else {
                       buttonSnack("경고", "아이디 혹은 비밀번호를 확인해주세요.", 2);
                     }
