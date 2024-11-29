@@ -1,5 +1,6 @@
 import 'package:crud_board/vm/vm_getx.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
@@ -49,6 +50,9 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: const InputDecoration(
                     labelText: '아이디를 입력하세요',
                   ),
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(8),
+                  ],
                   keyboardType: TextInputType.text,
                 ),
             ),
@@ -68,16 +72,20 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                 child: TextField(
+                  obscureText: true,
                   controller: pwController,
                   onChanged: (value) => setState(() {}),
                   decoration: const InputDecoration(
                     labelText: '비밀번호를 입력하세요',
                   ),
                   keyboardType: TextInputType.text,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(12),
+                  ],
                 ),
             ),
 
-            // id 입력 글자 수 text
+            // pw 입력 글자 수 text
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 20, 40),
               child: Row(
