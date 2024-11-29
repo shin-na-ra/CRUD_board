@@ -12,11 +12,4 @@ class User {
         required this.password,
         required this.status
     });
-
-    User.fromMap(Map<String, dynamic> res) 
-        : id = res['id'],
-        name = res['name'],
-        telno = res['telno'],
-        password = res['password'],
-        status = res['status'];
 }
