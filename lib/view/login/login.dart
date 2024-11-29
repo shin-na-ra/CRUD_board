@@ -2,6 +2,7 @@ import 'package:crud_board/vm/vm_getx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,21 +16,31 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController idController;
   late TextEditingController pwController;
 
+  final box = GetStorage();
+
   @override
   void initState() {
     super.initState();
     idController = TextEditingController();
     pwController = TextEditingController();
+    initStorage();
+  }
+
+  initStorage() {
+    box.write('userid', '');
   }
   
   @override
   void dispose() {
     idController.dispose();
     pwController.dispose();
+    disposeStorage();
     super.dispose();
   }
 
-
+  disposeStorage() {
+    box.erase();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +57,10 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                 child: TextField(
                   controller: idController,
-                  onChanged: (value) => setState(() {}),
+                  onChanged: (value) => {
+                    box.write('userid', idController.text),
+                    setState(() {})
+                  },
                   decoration: const InputDecoration(
                     labelText: '아이디를 입력하세요 (8자 이하)',
                   ),
