@@ -31,7 +31,7 @@ class VMgetX extends GetxController {
 
 
   // ElevatedButton 함수
-  SizedBox myEleBtn(Color bgColor, Color fontColor, String title, int value, TextEditingController? cont1, TextEditingController? cont2, TextEditingController? cont3) {
+  SizedBox myEleBtn(Color bgColor, Color fontColor, String title, int value, TextEditingController? cont1, TextEditingController? cont2, TextEditingController? cont3, TextEditingController? cont4) {
     return SizedBox(
         width: 200,
         height: 50,
@@ -58,6 +58,9 @@ class VMgetX extends GetxController {
             // value == 5일 때, 비밀번호 찾기 
             } else if (value == 5) {
               await findUserPW(cont1, cont2, cont3);
+
+            } else if (value == 6) {
+
             }
 
 
@@ -304,7 +307,6 @@ class VMgetX extends GetxController {
         print("User id: ${userSnapshot.docs[0].data()['id']}");
       }
 
-      final userid = userSnapshot.docs[0].data()['id'];
       final username = userSnapshot.docs[0].data()['name'];
       final pw = userSnapshot.docs[0].data()['password'];
       

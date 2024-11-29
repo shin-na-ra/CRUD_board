@@ -67,9 +67,9 @@ class _FindIdPageState extends State<FindIdPage> {
                 ),
             ),
 
-            controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "아이디 찾기", 3, nameController, telnoController, null),
+            controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "아이디 찾기", 3, nameController, telnoController, null, null),
             const SizedBox(height: 20,),
-            controller.myEleBtn(Theme.of(context).colorScheme.secondary, Colors.white, "로그인하기", 4, null, null, null),
+            controller.myEleBtn(Theme.of(context).colorScheme.secondary, Colors.white, "로그인하기", 4, null, null, null, null),
           ]
         ),
       ),

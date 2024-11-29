@@ -98,9 +98,9 @@ class _LoginPageState extends State<LoginPage> {
 
 
             // Elevated 버튼 영역
-            controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "로그인", 1, idController, pwController, null),
+            controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "로그인", 1, idController, pwController, null, null),
             const SizedBox(height: 20,),
-            controller.myEleBtn(Theme.of(context).colorScheme.secondary, Colors.white, "회원가입", 2, null, null, null),
+            controller.myEleBtn(Theme.of(context).colorScheme.secondary, Colors.white, "회원가입", 2, null, null, null, null),
             
 
             // textButton 영역
