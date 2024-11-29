@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'addPage.dart';
+import 'edidPage.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -14,7 +15,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final VMgetX controller = Get.put(VMgetX());
-    
 
     return Scaffold(
       appBar: controller.myAppBar("게시판"),
@@ -24,7 +24,7 @@ class Home extends StatelessWidget {
             .collection('board')
             .where('status', isEqualTo: 0)
             // .orderBy('id', descending: false)
-            .snapshots(),
+            .snapshots(), 
 
           builder: (context, snapshot) {
             if(!snapshot.hasData) {
@@ -108,6 +108,15 @@ Widget _buildItemWidget(doc) {
             trailing: Text(
               DateFormat('yyyy-MM-dd').format(board.date.toDate())
             ),
+            onTap: () {
+              Get.to(EditPage(
+                id : doc.id,
+                title : board.title,
+                content : board.content,
+                userid : board.userid,
+                btnName: "수정하기"
+              ));
+            }
           ),
         ),
       ],

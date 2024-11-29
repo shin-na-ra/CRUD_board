@@ -66,6 +66,10 @@ class VMgetX extends GetxController {
             // value == 7, 글쓰기
             } else if (value == 7) {
               await writeBoard(cont1, cont2);
+
+            // value == 8, 글 수정
+            } else if (value == 8) {
+              await updateBoard(cont1, cont2);
             }
 
 
@@ -106,7 +110,7 @@ class VMgetX extends GetxController {
       duration: const Duration(seconds: 2),
       backgroundColor: num == 1 ? Colors.green : Colors.red,
       colorText: Colors.white,
-      snackPosition: SnackPosition.BOTTOM
+      snackPosition: SnackPosition.TOP
     );
   }
 
@@ -429,5 +433,39 @@ class VMgetX extends GetxController {
     );
     Get.back();
     buttonSnack("알림", "등록이 되었습니다.", 1);
+  }
+
+
+  //글 수정하기
+  updateBoard(TextEditingController? titleController, TextEditingController? contentController) {
+    String title = titleController!.text.trim();
+    String content = contentController!.text.trim();
+
+    if(title.isEmpty) {
+      buttonSnack("경고", "제목을 입력하세요 .", 2);
+      return;
+    } 
+
+    if(content.isEmpty) {
+      buttonSnack("경고", "내용을 입력하세요 .", 2);
+      return;
+    } 
+
+    final box = GetStorage();
+    print("userid. boxread : ${box.read('userid')}");
+
+    FirebaseFirestore.instance
+    .collection('board')
+    .doc(box.read('docid'))
+    .update(
+      {
+        'title' : title,
+        'content' : content,
+        'date' : DateTime.now(),
+        'userid' : box.read('userid')
+      }
+    );
+    Get.back();
+    buttonSnack("알림", "수정이 되었습니다.", 1);
   }
 }
