@@ -14,6 +14,7 @@ import 'package:crud_board/view/login/findpw.dart';
 import 'package:crud_board/view/login/register.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../view/board/home.dart';
 import '../view/login/result.dart';
@@ -40,7 +41,6 @@ class VMgetX extends GetxController {
 
             //value == 1 일때, 로그인 버튼 클릭함.
             if (value == 1) {
-
               await checkFirebaseInLogin(cont1, cont2);
 
             // value == 2일 때, 회원가입 페이지로 넘어감  
@@ -59,8 +59,13 @@ class VMgetX extends GetxController {
             } else if (value == 5) {
               await findUserPW(cont1, cont2, cont3);
 
+            // value == 6일 때, 회원등록
             } else if (value == 6) {
               await registerUserInfo(cont1, cont2, cont3, cont4);
+            
+            // value == 7, 글쓰기
+            } else if (value == 7) {
+              await writeBoard(cont1, cont2);
             }
 
 
@@ -183,6 +188,8 @@ class VMgetX extends GetxController {
 
       // 입력한 id와 pw의 정보가 있을 때, 게시판 페이지로 전환    
       buttonSnack("알림", "로그인되었습니다.", 1);
+      
+      // print('read.box : ${box.read('userid')}');
       Get.to(const Home());
       idController.clear();
       pwController.clear();
@@ -390,5 +397,37 @@ class VMgetX extends GetxController {
     Get.back();
     buttonSnack("알림", "${name}님 회원가입되었습니다.", 1);
 
+  }
+
+
+  // 글 등록하기
+  writeBoard(TextEditingController? titleController, TextEditingController? contentController) {
+    String title = titleController!.text.trim();
+    String content = contentController!.text.trim();
+
+    if(title.isEmpty) {
+      buttonSnack("경고", "제목을 입력하세요 .", 2);
+      return;
+    } 
+
+    if(content.isEmpty) {
+      buttonSnack("경고", "내용을 입력하세요 .", 2);
+      return;
+    } 
+
+    final box = GetStorage();
+    print("userid. boxread : ${box.read('userid')}");
+
+    FirebaseFirestore.instance.collection('board').add(
+      {
+        'title' : title,
+        'content' : content,
+        'status' : 0,
+        'date' : DateTime.now(),
+        'userid' : box.read('userid')
+      }
+    );
+    Get.back();
+    buttonSnack("알림", "등록이 되었습니다.", 1);
   }
 }
