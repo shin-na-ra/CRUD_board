@@ -82,7 +82,7 @@ class _FindPwPageState extends State<FindPwPage> {
                 ),
             ),
 
-            controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "비밀번호 찾기", 3, nameController, telnoController, idController),
+            controller.myEleBtn(Theme.of(context).colorScheme.tertiary, Colors.white, "비밀번호 찾기", 5, nameController, telnoController, idController),
             const SizedBox(height: 20,),
             controller.myEleBtn(Theme.of(context).colorScheme.secondary, Colors.white, "로그인하기", 4, null, null, null),
           ]

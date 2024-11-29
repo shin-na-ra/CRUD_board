@@ -51,9 +51,13 @@ class VMgetX extends GetxController {
             } else if (value == 3) {
               await findUserId(cont1, cont2);
 
-            //뒤로가기  
+            //value == 4, 뒤로가기  
             } else if (value == 4) {
               Get.back();
+
+            // value == 5일 때, 비밀번호 찾기 
+            } else if (value == 5) {
+              await findUserPW(cont1, cont2, cont3);
             }
 
 
@@ -224,11 +228,6 @@ class VMgetX extends GetxController {
         return;
       }
 
-      if (userSnapshot.docs.isNotEmpty) {
-        print("User Data: ${userSnapshot.docs[0].data()}");
-        print("User id: ${userSnapshot.docs[0].data()['id']}");
-      }
-
       final userid = userSnapshot.docs[0].data()['id'];
       final username = userSnapshot.docs[0].data()['name'];
       
@@ -240,11 +239,86 @@ class VMgetX extends GetxController {
           label : "아이디",
           result : userid,
         ),
-        // arguments: ["아이디 찾기 결과", userSnapshot.docs[0].data()['name'], "아이디", userSnapshot.docs[0].data()['id']] //0 : 제목, 1: 이름, 2: 아이디/비밀번호, 3: 결과값
-        arguments: ["아이디 찾기 결과"] //0 : 제목, 1: 이름, 2: 아이디/비밀번호, 3: 결과값
       );
     } catch(e) {
       buttonSnack("에러", "아이디찾기 중 문제가 발생했습니다: $e", 2);
+    }
+  }
+
+
+  // 비번 찾기 함수
+  findUserPW(TextEditingController? nameController, TextEditingController? telnoController, TextEditingController? idController) async {
+
+    String name = nameController!.text.trim();
+    String telno = telnoController!.text.trim();
+    String id = idController!.text.trim();
+
+    if(id.isEmpty) {
+      buttonSnack("경고", "아이디를 입력하세요 .", 2);
+      return;
+    } 
+
+    if(name.isEmpty) {
+      buttonSnack("경고", "이름을 입력하세요 .", 2);
+      return;
+    } 
+
+    if(telno.isEmpty) {
+      buttonSnack("경고", "휴대폰 번호를 입력하세요 .", 2);
+      return;
+    } 
+
+    if(!validateId(id)) {
+      buttonSnack("경고", "아이디는 소문자, 숫자 6-8자 이상입니다.", 2);
+      return;
+    }
+
+    if(!validateName(name)) {
+      buttonSnack("경고", "한글로 이름을 입력하세요.", 2);
+      return;
+    }
+
+    if(!validatePhone(telno)) {
+      buttonSnack("경고", "010-0000-0000 형식으로 입력해주세요.", 2);
+      return;
+    }
+
+    try {
+      // 사용자 조회
+      final userSnapshot = await FirebaseFirestore.instance
+          .collection('user')
+          .where('name', isEqualTo: name)
+          .where('telno', isEqualTo: telno)
+          .where('id', isEqualTo: id)
+          .get();
+
+
+      // 이름과 비번으로 검색된게 없을 때, 
+      if (userSnapshot.docs.isEmpty) {
+        buttonSnack("경고", "회원정보가 없습니다.", 2);
+        return;
+      }
+
+      if (userSnapshot.docs.isNotEmpty) {
+        print("User Data: ${userSnapshot.docs[0].data()}");
+        print("User id: ${userSnapshot.docs[0].data()['id']}");
+      }
+
+      final userid = userSnapshot.docs[0].data()['id'];
+      final username = userSnapshot.docs[0].data()['name'];
+      final pw = userSnapshot.docs[0].data()['password'];
+      
+      Get.back();
+      Get.to(
+        ResultPage(
+          title: "비밀번호 찾기 결과",
+          username : username,
+          label : "비밀번호",
+          result : pw,
+        ),
+      );
+    } catch(e) {
+      buttonSnack("에러", "비밀번호 찾기 중 문제가 발생했습니다: $e", 2);
     }
   }
 }
